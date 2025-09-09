@@ -21,7 +21,7 @@ class Api::V1::ChatbotController < ApplicationController
         Rails.logger.info "Searching for products with term: #{search_term}"
         
         digikala_service = DigikalaScrapingService.new
-        context = digikala_service.search_products(search_term, 5)
+        context = digikala_service.search_products(search_term, 30)
         
         Rails.logger.info "Found #{context&.length || 0} products"
       end

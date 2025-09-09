@@ -1,7 +1,7 @@
 class Api::V1::ProductsController < ApplicationController
   def search
     query = params[:q] || params[:query]
-    limit = (params[:limit] || 10).to_i
+    limit = (params[:limit] || 30).to_i
 
     if query.blank?
       render json: { error: "Search query cannot be blank" }, status: :bad_request
