@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100" dir="rtl">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 persian-text" dir="rtl">
     <NuxtRouteAnnouncer />
     
     <div class="container mx-auto px-4 py-8">
       <!-- Header -->
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800 mb-2">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2 font-persian">
           دستیار خرید محصولات
         </h1>
-        <p class="text-gray-600 text-lg">
+        <p class="text-gray-600 text-lg font-persian">
           توصیه‌های محصولات هوشمند از دیجی‌کالا دریافت کنید
         </p>
       </div>
@@ -21,7 +21,7 @@
           class="h-96 overflow-y-auto p-6 space-y-4 bg-gray-50"
         >
           <!-- Welcome Message -->
-          <div v-if="messages.length === 0" class="text-center text-gray-500 mt-16">
+          <div v-if="messages.length === 0" class="text-center text-gray-500 mt-16 font-persian">
             <div class="text-6xl mb-4">🛍️</div>
             <h3 class="text-xl font-semibold mb-2">به دستیار خرید شما خوش آمدید!</h3>
             <p>از من درباره هر محصولی که می‌خواهید بخرید بپرسید و من بهترین گزینه‌ها را از دیجی‌کالا برایتان پیدا می‌کنم.</p>
@@ -38,7 +38,7 @@
             :class="message.type === 'user' ? 'justify-end' : 'justify-start'"
           >
             <div 
-              class="max-w-md p-3 rounded-lg shadow-md"
+              class="max-w-md p-3 rounded-lg shadow-md font-persian"
               :class="message.type === 'user' ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-100 text-gray-800 mr-auto'"
             >
               <div v-if="message.type === 'bot'" class="flex items-start space-x-2">
@@ -89,7 +89,7 @@
 
           <!-- Typing Indicator -->
           <div v-if="isTyping" class="flex justify-start">
-            <div class="max-w-md p-3 rounded-lg shadow-md bg-gray-100 text-gray-800 mr-auto">
+            <div class="max-w-md p-3 rounded-lg shadow-md bg-gray-100 text-gray-800 mr-auto font-persian">
               <div class="flex items-center space-x-2">
                 <div class="text-2xl">🤖</div>
                 <div class="flex space-x-1">
@@ -108,7 +108,7 @@
             <button
               type="submit"
               :disabled="!userMessage.trim() || isTyping"
-              class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors font-persian"
             >
               <span v-if="!isTyping">ارسال</span>
               <span v-else>...</span>
@@ -117,7 +117,7 @@
               v-model="userMessage"
               type="text"
               placeholder="از من درباره هر محصولی که می‌خواهید بخرید بپرسید..."
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-persian"
               :disabled="isTyping"
             />
           </form>
@@ -127,12 +127,12 @@
       <!-- Quick Actions -->
       <div class="max-w-4xl mx-auto mt-6">
         <div class="text-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-700">دسترسی سریع</h3>
+          <h3 class="text-lg font-semibold text-gray-700 font-persian">دسترسی سریع</h3>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button
             @click="quickSearch('laptop')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right font-persian"
           >
             <div class="text-2xl mb-2">💻</div>
             <div class="font-medium">جستجوی لپ تاپ</div>
@@ -140,7 +140,7 @@
           </button>
           <button
             @click="quickSearch('phone')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right font-persian"
           >
             <div class="text-2xl mb-2">📱</div>
             <div class="font-medium">جستجوی گوشی هوشمند</div>
@@ -148,7 +148,7 @@
           </button>
           <button
             @click="quickSearch('headphone')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right font-persian"
           >
             <div class="text-2xl mb-2">🎧</div>
             <div class="font-medium">جستجوی هدفون</div>
@@ -251,3 +251,75 @@ useHead({
   ]
 })
 </script>
+
+<style>
+/* Import Persian fonts */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://cdn.fontcdn.ir/Font/Persian/IRANSans/IRANSansXFaNum.css');
+
+/* Persian font settings */
+* {
+  font-family: 'Vazirmatn', 'IRANSansXFaNum', 'IRANSans', 'Tahoma', 'Arial', sans-serif !important;
+}
+
+body {
+  direction: rtl;
+  font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure Persian text is properly rendered */
+.persian-text, .font-persian {
+  font-family: 'Vazirmatn', 'IRANSansXFaNum', 'IRANSans', 'Tahoma', 'Arial', sans-serif !important;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+}
+
+/* Custom styles for the chat interface */
+.chat-bubble {
+  max-width: 28rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+  background-color: #3b82f6;
+  color: white;
+  margin-left: auto;
+}
+
+.bot-message {
+  background-color: #f3f4f6;
+  color: #374151;
+  margin-right: auto;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.2s;
+}
+
+.loading-dots {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.loading-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #9ca3af;
+  border-radius: 50%;
+  animation: bounce 1s infinite;
+}
+</style>

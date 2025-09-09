@@ -10,6 +10,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'persian': ['Vazirmatn', 'IRANSans', 'Tahoma', 'Arial', 'sans-serif'],
+        'sans': ['Vazirmatn', 'IRANSans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
       animation: {
         'bounce': 'bounce 1s infinite',
       }

@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
+/* Import Persian fonts */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://cdn.fontcdn.ir/Font/Persian/IRANSans/IRANSansXFaNum.css');
 
 @tailwind base;
 @tailwind components;
@@ -6,11 +8,22 @@
 
 @layer base {
   * {
-    font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+    font-family: 'Vazirmatn', 'IRANSansXFaNum', 'IRANSans', 'Tahoma', 'Arial', sans-serif;
   }
   
   body {
     direction: rtl;
+    font-feature-settings: 'kern', 'liga', 'clig', 'calt';
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Ensure Persian text is properly rendered */
+  .persian-text {
+    font-family: 'Vazirmatn', 'IRANSansXFaNum', 'IRANSans', 'Tahoma', 'Arial', sans-serif;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
   }
 }
 

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "chatbot/chat"
-      get "products/search"
+      post "products/search"
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

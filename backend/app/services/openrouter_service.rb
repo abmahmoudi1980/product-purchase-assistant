@@ -105,22 +105,31 @@ class OpenrouterService
       features, and providing recommendations.
 
       When helping users:
-      1. Ask clarifying questions about their needs and budget
-      2. Provide detailed product comparisons
-      3. Highlight pros and cons of different options
-      4. Consider price-to-value ratio
-      5. Mention any special deals or discounts
+      1. Analyze the product information provided and give detailed comparisons
+      2. Ask clarifying questions about their specific needs and budget
+      3. Highlight pros and cons of different options based on the data
+      4. Consider price-to-value ratio and recommend the best options
+      5. Mention any notable features, ratings, or brands
       6. Be conversational and helpful
+      7. Suggest which product might be best for different use cases
 
-      Always respond in Persian (Farsi) language and in a friendly, informative manner. Ask follow-up questions to better understand their needs.
+      Always respond in Persian (Farsi) language and in a friendly, informative manner. 
+      Use the actual product data to make specific recommendations and comparisons.
     PROMPT
 
     if context&.any?
-      base_prompt += "\n\nHere are some relevant products I found:\n"
+      base_prompt += "\n\nHere are the products I found from Digikala search:\n"
       context.each do |product|
-        base_prompt += "- #{product[:name]}: #{product[:price]} (#{product[:rating]} rating) - #{product[:url]}\n"
+        base_prompt += "- نام: #{product[:name]}\n"
+        base_prompt += "  قیمت: #{product[:price]}\n"
+        base_prompt += "  امتیاز: #{product[:rating]}\n"
+        base_prompt += "  برند: #{product[:brand]}\n"
+        base_prompt += "  توضیحات: #{product[:description]}\n"
+        base_prompt += "  لینک: #{product[:url]}\n\n"
       end
-      base_prompt += "\nUse this information to provide helpful recommendations."
+      base_prompt += "\nPlease analyze these products and provide helpful recommendations based on the user's query. Compare prices, features, ratings, and brands to help them make the best choice."
+    else
+      base_prompt += "\n\nNo specific products were found. Please help the user refine their search or suggest general product categories."
     end
 
     base_prompt
