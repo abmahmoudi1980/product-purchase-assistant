@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100" dir="rtl">
     <NuxtRouteAnnouncer />
     
     <div class="container mx-auto px-4 py-8">
       <!-- Header -->
       <div class="text-center mb-8">
         <h1 class="text-4xl font-bold text-gray-800 mb-2">
-          Product Purchase Assistant
+          دستیار خرید محصولات
         </h1>
         <p class="text-gray-600 text-lg">
-          Get AI-powered product recommendations from Digikala
+          توصیه‌های محصولات هوشمند از دیجی‌کالا دریافت کنید
         </p>
       </div>
 
@@ -23,10 +23,10 @@
           <!-- Welcome Message -->
           <div v-if="messages.length === 0" class="text-center text-gray-500 mt-16">
             <div class="text-6xl mb-4">🛍️</div>
-            <h3 class="text-xl font-semibold mb-2">Welcome to your shopping assistant!</h3>
-            <p>Ask me about any product you want to buy, and I'll help you find the best options from Digikala.</p>
+            <h3 class="text-xl font-semibold mb-2">به دستیار خرید شما خوش آمدید!</h3>
+            <p>از من درباره هر محصولی که می‌خواهید بخرید بپرسید و من بهترین گزینه‌ها را از دیجی‌کالا برایتان پیدا می‌کنم.</p>
             <div class="mt-4 text-sm text-gray-400">
-              Try asking: "I need a new laptop for work" or "Show me the best smartphones under 20 million tomans"
+              مثال: "به یک لپ تاپ جدید برای کار نیاز دارم" یا "بهترین گوشی‌های زیر ۲۰ میلیون تومان را نشان بده"
             </div>
           </div>
 
@@ -47,7 +47,7 @@
                   <div v-html="formatMessage(message.content)"></div>
                   <!-- Products Display -->
                   <div v-if="message.products && message.products.length > 0" class="mt-4">
-                    <h4 class="font-semibold text-gray-700 mb-2">📦 Found Products:</h4>
+                    <h4 class="font-semibold text-gray-700 mb-2">📦 محصولات یافت شده:</h4>
                     <div class="grid gap-3">
                       <div 
                         v-for="product in message.products.slice(0, 3)" 
@@ -71,7 +71,7 @@
                             target="_blank" 
                             class="text-blue-500 hover:text-blue-700 underline"
                           >
-                            View Product
+                            مشاهده محصول
                           </a>
                         </div>
                         <p class="text-xs text-gray-500 mt-2">{{ product.description }}</p>
@@ -104,22 +104,22 @@
 
         <!-- Chat Input -->
         <div class="p-6 bg-white border-t">
-          <form @submit.prevent="sendMessage" class="flex space-x-4">
-            <input
-              v-model="userMessage"
-              type="text"
-              placeholder="Ask me about any product you want to buy..."
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              :disabled="isTyping"
-            />
+          <form @submit.prevent="sendMessage" class="flex space-x-4 space-x-reverse">
             <button
               type="submit"
               :disabled="!userMessage.trim() || isTyping"
               class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
             >
-              <span v-if="!isTyping">Send</span>
+              <span v-if="!isTyping">ارسال</span>
               <span v-else>...</span>
             </button>
+            <input
+              v-model="userMessage"
+              type="text"
+              placeholder="از من درباره هر محصولی که می‌خواهید بخرید بپرسید..."
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              :disabled="isTyping"
+            />
           </form>
         </div>
       </div>
@@ -127,32 +127,32 @@
       <!-- Quick Actions -->
       <div class="max-w-4xl mx-auto mt-6">
         <div class="text-center mb-4">
-          <h3 class="text-lg font-semibold text-gray-700">Quick Actions</h3>
+          <h3 class="text-lg font-semibold text-gray-700">دسترسی سریع</h3>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button
             @click="quickSearch('laptop')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-left"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
           >
             <div class="text-2xl mb-2">💻</div>
-            <div class="font-medium">Find Laptops</div>
-            <div class="text-sm text-gray-600">Browse laptops for work and gaming</div>
+            <div class="font-medium">جستجوی لپ تاپ</div>
+            <div class="text-sm text-gray-600">مرور لپ تاپ‌های کاری و گیمینگ</div>
           </button>
           <button
             @click="quickSearch('phone')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-left"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
           >
             <div class="text-2xl mb-2">📱</div>
-            <div class="font-medium">Find Smartphones</div>
-            <div class="text-sm text-gray-600">Latest mobile phones and accessories</div>
+            <div class="font-medium">جستجوی گوشی هوشمند</div>
+            <div class="text-sm text-gray-600">جدیدترین گوشی‌ها و لوازم جانبی</div>
           </button>
           <button
             @click="quickSearch('headphone')"
-            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-left"
+            class="p-4 bg-white rounded-lg shadow hover:shadow-md transition-shadow text-right"
           >
             <div class="text-2xl mb-2">🎧</div>
-            <div class="font-medium">Find Headphones</div>
-            <div class="text-sm text-gray-600">Audio equipment and accessories</div>
+            <div class="font-medium">جستجوی هدفون</div>
+            <div class="text-sm text-gray-600">تجهیزات صوتی و لوازم جانبی</div>
           </button>
         </div>
       </div>
@@ -206,7 +206,7 @@ const sendMessage = async () => {
     // Add bot response
     messages.value.push({
       type: 'bot',
-      content: response.response || 'Sorry, I couldn\'t process your request.',
+      content: response.response || 'متاسفم، نتوانستم درخواست شما را پردازش کنم.',
       products: response.products || [],
       searched_for: response.searched_for,
       timestamp: new Date()
@@ -216,7 +216,7 @@ const sendMessage = async () => {
     console.error('Error sending message:', error)
     messages.value.push({
       type: 'bot',
-      content: 'Sorry, I\'m having trouble connecting right now. Please try again.',
+      content: 'متاسفم، در حال حاضر مشکلی در اتصال دارم. لطفاً دوباره تلاش کنید.',
       timestamp: new Date()
     })
   } finally {
@@ -228,7 +228,7 @@ const sendMessage = async () => {
 }
 
 const quickSearch = (query) => {
-  userMessage.value = `Show me the best ${query}s available`
+  userMessage.value = `بهترین ${query === 'laptop' ? 'لپ تاپ‌های' : query === 'phone' ? 'گوشی‌های' : 'هدفون‌های'} موجود را نشان بده`
   sendMessage()
 }
 
@@ -245,9 +245,9 @@ const scrollToBottom = () => {
 
 // Page metadata
 useHead({
-  title: 'Product Purchase Assistant',
+  title: 'دستیار خرید محصولات',
   meta: [
-    { name: 'description', content: 'AI-powered product recommendation assistant for Digikala products' }
+    { name: 'description', content: 'دستیار هوشمند توصیه محصولات برای محصولات دیجی‌کالا' }
   ]
 })
 </script>

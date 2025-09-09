@@ -1,6 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+  }
+  
+  body {
+    direction: rtl;
+  }
+}
 
 /* Custom styles for the chat interface */
 .chat-bubble {

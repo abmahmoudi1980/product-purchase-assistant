@@ -20,7 +20,7 @@ class OpenrouterService
     system_prompt = build_system_prompt(context)
     
     body = {
-      model: "meta-llama/llama-3.1-8b-instruct:free",
+      model: "deepseek/deepseek-chat-v3.1:free",
       messages: [
         {
           role: "system",
@@ -58,28 +58,28 @@ class OpenrouterService
   def generate_fallback_response(message, context)
     # Generate a helpful response without AI when API key is not available
     if context&.any?
-      product_names = context.map { |p| p[:name] }.join(", ")
+      product_names = context.map { |p| p[:name] }.join("، ")
       <<~RESPONSE
-        Based on your search, I found these products: #{product_names}
+        بر اساس جستجوی شما، این محصولات را یافتم: #{product_names}
 
-        Here's what I can tell you about your request "#{message}":
+        درباره درخواست شما "#{message}" می‌توانم بگویم:
 
         #{analyze_user_intent(message, context)}
 
-        Please note: To get more detailed AI-powered recommendations, an OpenRouter API key needs to be configured.
+        توجه: برای دریافت توصیه‌های دقیق‌تر هوش مصنوعی، نیاز به تنظیم کلید API OpenRouter است.
       RESPONSE
     else
       <<~RESPONSE
-        I understand you're looking for help with "#{message}".
+        درخواست شما "#{message}" را متوجه شدم.
 
-        I'm a product purchase assistant that helps you find the best products from Digikala. While I can search for products, I need an OpenRouter API key to provide detailed AI-powered recommendations.
+        من یک دستیار خرید محصولات هستم که به شما کمک می‌کنم بهترین محصولات را از دیجی‌کالا پیدا کنید. در حالی که می‌توانم محصولات را جستجو کنم، برای ارائه توصیه‌های دقیق هوش مصنوعی به کلید API OpenRouter نیاز دارم.
 
-        You can still use me to:
-        - Search for specific products
-        - Compare prices and ratings
-        - Get basic product information
+        هنوز هم می‌توانید از من استفاده کنید برای:
+        - جستجوی محصولات خاص
+        - مقایسه قیمت‌ها و امتیازات
+        - دریافت اطلاعات پایه محصولات
 
-        Try asking me about specific products like "laptop", "phone", or "headphones"!
+        از من درباره محصولات خاصی مثل "لپ تاپ"، "گوشی" یا "هدفون" بپرسید!
       RESPONSE
     end
   end
@@ -88,13 +88,13 @@ class OpenrouterService
     # Simple intent analysis for fallback responses
     case message.downcase
     when /laptop|لپ تاپ/
-      "For laptops, I recommend considering: processor type (Intel vs AMD), RAM (8GB+ for work), storage (SSD preferred), and screen size (13-15 inches for portability)."
+      "برای لپ تاپ‌ها توصیه می‌کنم این موارد را در نظر بگیرید: نوع پردازنده (Intel در مقابل AMD)، رم (حداقل ۸ گیگابایت برای کار)، حافظه (SSD ترجیحی)، و اندازه صفحه نمایش (۱۳-۱۵ اینچ برای قابلیت حمل)."
     when /phone|گوشی|موبایل/
-      "For smartphones, key factors include: battery life, camera quality, storage capacity, and brand reliability. Consider your budget and intended use."
+      "برای گوشی‌های هوشمند، عوامل کلیدی شامل: عمر باتری، کیفیت دوربین، ظرفیت حافظه، و قابلیت اعتماد برند است. بودجه و نحوه استفاده‌تان را در نظر بگیرید."
     when /budget|قیمت|ارزان/
-      "Budget is important! Look for the best value proposition - sometimes mid-range products offer better price-to-performance ratios than flagship models."
+      "بودجه مهم است! به دنبال بهترین ارزش در مقابل قیمت باشید - گاهی محصولات میان‌رده نسبت قیمت به عملکرد بهتری نسبت به محصولات پرچمدار ارائه می‌دهند."
     else
-      "Consider factors like brand reputation, user reviews, warranty, and your specific needs when making a purchase decision."
+      "عواملی مثل شهرت برند، نظرات کاربران، گارانتی، و نیازهای خاص خود را هنگام تصمیم‌گیری برای خرید در نظر بگیرید."
     end
   end
 
@@ -112,7 +112,7 @@ class OpenrouterService
       5. Mention any special deals or discounts
       6. Be conversational and helpful
 
-      Always respond in a friendly, informative manner and ask follow-up questions to better understand their needs.
+      Always respond in Persian (Farsi) language and in a friendly, informative manner. Ask follow-up questions to better understand their needs.
     PROMPT
 
     if context&.any?
