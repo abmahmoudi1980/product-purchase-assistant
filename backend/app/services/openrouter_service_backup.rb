@@ -32,10 +32,10 @@ class OpenrouterService
           content: message
         }
       ],
-      max_tokens: 1500,
+      max_tokens: 1500, # Increased for more detailed responses
       temperature: 0.7,
       top_p: 0.9,
-      frequency_penalty: 0.1
+      frequency_penalty: 0.1 # Reduce repetition
     }
 
     @headers['Authorization'] = "Bearer #{api_key}"
@@ -43,7 +43,7 @@ class OpenrouterService
     response = self.class.post('/chat/completions', {
       body: body.to_json,
       headers: @headers,
-      timeout: 30
+      timeout: 30 # 30 second timeout
     })
 
     if response.success?
@@ -63,6 +63,7 @@ class OpenrouterService
   end
 
   def custom_completion(prompt, options = {})
+    # Method for direct prompt completion (used by intelligent search)
     api_key = Rails.application.credentials.dig(:openrouter_api_key) || ENV['OPENROUTER_API_KEY']
     
     return nil unless api_key.present?
@@ -76,7 +77,7 @@ class OpenrouterService
         }
       ],
       max_tokens: options[:max_tokens] || 500,
-      temperature: options[:temperature] || 0.3
+      temperature: options[:temperature] || 0.3 # Lower temperature for more structured responses
     }
 
     @headers['Authorization'] = "Bearer #{api_key}"
@@ -97,14 +98,20 @@ class OpenrouterService
     Rails.logger.error "OpenRouter custom completion error: #{e.message}"
     nil
   end
+  rescue => e
+    Rails.logger.error "OpenRouter Service error: #{e.message}"
+    generate_fallback_response(message, context)
+  end
 
   private
 
   def generate_fallback_response(message, context, error_type = nil)
+    # Generate a helpful response without AI when API key is not available
     if context&.any?
       product_names = context.map { |p| p[:name] }.join("، ")
       product_count = context.length
       
+      # Create more sophisticated fallback based on error type
       response_prefix = case error_type
       when "timeout"
         "پاسخ کامل هوش مصنوعی به دلیل کندی شبکه دریافت نشد، اما"
@@ -145,6 +152,7 @@ class OpenrouterService
   def generate_product_summary(products)
     return "" if products.empty?
     
+    # Analyze price ranges
     prices_with_values = products.map { |p| extract_price_value(p[:price]) }.compact
     
     if prices_with_values.any?
@@ -157,9 +165,11 @@ class OpenrouterService
       price_summary = "اطلاعات قیمت برای بیشتر محصولات در دسترس است"
     end
     
+    # Analyze brands
     brands = products.map { |p| p[:brand] }.compact.uniq.reject { |b| b == "نامشخص" }
     brand_summary = brands.any? ? "برندهای موجود: #{brands.join('، ')}" : "برندهای مختلفی موجود است"
     
+    # Analyze ratings
     ratings = products.map { |p| extract_rating_value(p[:rating]) }.compact
     rating_summary = if ratings.any?
       avg_rating = (ratings.sum / ratings.length.to_f).round(1)
@@ -174,6 +184,7 @@ class OpenrouterService
   def extract_price_value(price_string)
     return nil if price_string.blank? || price_string.include?('موجود نیست')
     
+    # Extract numeric value from Persian/English price strings
     numbers = price_string.gsub(/[,،]/, '').scan(/\d+/).join.to_i
     numbers > 0 ? numbers : nil
   end
@@ -181,15 +192,18 @@ class OpenrouterService
   def extract_rating_value(rating_string)
     return nil if rating_string.blank? || rating_string.include?('بدون امتیاز')
     
+    # Extract numeric rating
     match = rating_string.match(/(\d+\.?\d*)/)
     match ? match[1].to_f : nil
   end
 
   def format_price(price)
+    # Format price with Persian thousand separators
     price.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1،').reverse
   end
 
   def analyze_user_intent(message, context)
+    # Simple intent analysis for fallback responses
     case message.downcase
     when /laptop|لپ تاپ/
       "برای لپ تاپ‌ها توصیه می‌کنم این موارد را در نظر بگیرید: نوع پردازنده (Intel در مقابل AMD)، رم (حداقل ۸ گیگابایت برای کار)، حافظه (SSD ترجیحی)، و اندازه صفحه نمایش (۱۳-۱۵ اینچ برای قابلیت حمل)."

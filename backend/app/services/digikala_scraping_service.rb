@@ -241,13 +241,11 @@ class DigikalaScrapingService
     ]
     
     found_elements = nil
-    used_selector = nil
     
     product_selectors.each do |selector|
       elements = doc.css(selector)
       if elements.length > 0
         found_elements = elements
-        used_selector = selector
         Rails.logger.info "Found #{elements.length} elements with selector: #{selector}"
         break
       end
