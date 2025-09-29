@@ -36,10 +36,32 @@ An advanced AI-powered chatbot that helps users find and compare products from D
 
 ## Installation & Setup
 
+### Quick Start with Docker 🐳
+
+The easiest way to run the complete application:
+
+```bash
+# Clone the repository
+git clone https://github.com/abmahmoudi1980/product-purchase-assistant.git
+cd product-purchase-assistant
+
+# Start with Docker (recommended)
+docker-compose -f docker-compose.dev.yml up
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:3001
+```
+
+For detailed Docker configuration and production deployment, see [DOCKER.md](./DOCKER.md).
+
+### Manual Setup
+
 ### Prerequisites
 - Ruby 3.2+
 - Node.js 20+
 - Git
+- Docker (optional but recommended)
 
 ### Backend Setup
 
@@ -294,6 +316,30 @@ npm run test
 4. **API Integration**: Test both with and without OpenRouter API key
 
 ## Deployment
+
+### Docker Deployment (Recommended) 🐳
+
+For the complete deployment guide with Docker, see [DOCKER.md](./DOCKER.md).
+
+#### Quick Production Deployment
+```bash
+# Production build with reverse proxy
+docker-compose -f docker-compose.prod.yml up --build
+
+# Development with hot reloading
+docker-compose -f docker-compose.dev.yml up
+```
+
+#### Docker Features
+- **Multi-stage builds**: Optimized for production
+- **Browser automation**: Firefox pre-configured for scraping
+- **Reverse proxy**: Nginx configuration included
+- **Health checks**: Built-in container monitoring
+- **Volume persistence**: Data and dependencies preserved
+- **Security**: Non-root users, minimal images
+- **Kamal ready**: Compatible with modern deployment workflows
+
+### Manual Deployment
 
 ### Backend Deployment
 The Rails app is configured with:
