@@ -321,7 +321,27 @@ npm run test
 
 For the complete deployment guide with Docker, see [DOCKER.md](./DOCKER.md).
 
-#### Quick Production Deployment
+#### Production Server Deployment
+
+Deploy to production server (95.182.101.204) at `/root/app/ppa`:
+
+```bash
+# Test production build locally first
+./test-production-build.sh
+
+# Deploy to production server
+./deploy.sh deploy
+
+# Check deployment status
+./deploy.sh status
+
+# Rollback if needed
+./deploy.sh rollback
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+#### Quick Local Testing
 ```bash
 # Production build with reverse proxy
 docker-compose -f docker-compose.prod.yml up --build
@@ -337,7 +357,7 @@ docker-compose -f docker-compose.dev.yml up
 - **Health checks**: Built-in container monitoring
 - **Volume persistence**: Data and dependencies preserved
 - **Security**: Non-root users, minimal images
-- **Kamal ready**: Compatible with modern deployment workflows
+- **Production deployment**: Automated deployment script with rollback capability
 
 ### Manual Deployment
 
